@@ -4,13 +4,17 @@ const { mongoDbURI } = require('./config/keys');
 
 const app = express();
 
+app.use(express.json({extended: false}));
 
 const PORT = process.env.PORT || 9876;
 
 
 app.listen(PORT, () => {
-  mongoose.connect(mongoDbURI, {useNewUrlParser: false});
-  mongoose.set('useAndModify', 'false');
+  mongoose.connect(mongoDbURI, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  });
 });
 
 const db = mongoose.connection;
