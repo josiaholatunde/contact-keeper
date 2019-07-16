@@ -1,5 +1,7 @@
 const { loginUser, getUser } = require('../controllers/UsersController');
 const auth = require('../middlewares/auth');
+const { check } = require('express-validator');
+
 module.exports = app => {
 
   //@route POST /api/auth

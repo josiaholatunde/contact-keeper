@@ -1,7 +1,7 @@
 const Contacts = require('../models/Contact');
 const {  validationResult } = require('express-validator');
 
-exports.getUserContacts = (req, res, next) => {
+exports.getUserContacts = async (req, res, next) => {
   const {id} = req.user;
   try {
     const contacts = await Contacts.find({user: id}).sort({date: -1}); 
@@ -13,7 +13,7 @@ exports.getUserContacts = (req, res, next) => {
 }
 
 
-exports.addContact = (req, res, next) => {
+exports.addContact = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json(errors.array());
@@ -21,6 +21,10 @@ exports.addContact = (req, res, next) => {
   const {name, email, phone, type} = req.body;
 
   try {
+    const contactFromDb = await Contacts.findOne({email});
+    if (contactFromDb) {
+      return res.status(400).json({msg: 'Contact Exists'});
+    }
     const contact = new Contacts({
       name,
       email,
@@ -34,13 +38,12 @@ exports.addContact = (req, res, next) => {
     console.error(error.message);
     return res.status(500).send('Server Error');
   }
-  res.json({msg: 'Add contacts'})
 }
 
 exports.updateContact = async (req, res, next) => {
   const {name, email, phone, type} = req.body;
  try {
-   const contact = await Contacts.findById(req.params.id);
+   let contact = await Contacts.findById(req.params.id);
    if (!contact) return res.status(404).json({msg: 'No Contact Found'});
 
    if (contact.user.toString() !== req.user.id) {

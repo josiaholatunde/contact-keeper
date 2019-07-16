@@ -89,7 +89,7 @@ exports.loginUser = async (req, res, next) => {
 
     const userPayload = {
       user: {
-        id: createdUser._id
+        id: user._id
       }
     }
 
@@ -102,8 +102,7 @@ exports.loginUser = async (req, res, next) => {
         .status(201)
         .json({
           user: {
-            ...createdUser._doc, 
-            password: null
+            ...user._doc
           }, 
           token
         });
@@ -112,7 +111,7 @@ exports.loginUser = async (req, res, next) => {
 
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 
 }
