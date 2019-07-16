@@ -1,5 +1,6 @@
 package-lock.json
 node_modules/
+/config/dev.keys.js
 
 /client/build
 /client/.env.local
