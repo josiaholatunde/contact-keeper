@@ -1,1 +1,49 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
+
+.mt-3 {
+    margin-top: 1.4rem;;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.ml-2 {
+    margin-left: .3rem;;
+}
+
+.ml-3 {
+    margin-left: 1rem;
+}
+.mt-n2 {
+    margin-top: -1rem;
+}
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.radio {
+    transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    cursor: pointer;
+}
+
+.text-error {
+    color: #dc3545;
+    font-size: .9rem;
+}
+
+.form-group {
+    margin: 1.2rem 0 !important;
+}
+
+.filter-container {
+    margin-top: 3.3rem;
+    height: 100%;
+}

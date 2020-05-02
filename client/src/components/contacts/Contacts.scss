@@ -1,0 +1,16 @@
+.search-box-container {
+    position: relative;
+    display: flex;
+
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 2%;
+    }
+}
+
+
+.no-results {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}

@@ -19,9 +19,9 @@ exports.addContact = async (req, res, next) => {
     return res.status(400).json(errors.array());
   }
   const {name, email, phone, type} = req.body;
-
+  const user = req.user;
   try {
-    const contactFromDb = await Contacts.findOne({email});
+    const contactFromDb = await Contacts.findOne({ email, user: user.id });
     if (contactFromDb) {
       return res.status(400).json({msg: 'Contact Exists'});
     }
@@ -30,7 +30,7 @@ exports.addContact = async (req, res, next) => {
       email,
       phone,
       type,
-      user: req.user.id
+      user: user.id
     })
     await contact.save();
     return res.status(201).json(contact);

@@ -29,4 +29,7 @@ export const AUTH_ERRORS = 'AUTH_ERRORS';
 
 export const CONTACT_ERROR = 'CONTACT_ERROR';
 
+// shared
+export const SET_LOADING='SET_LOADING'
+
 

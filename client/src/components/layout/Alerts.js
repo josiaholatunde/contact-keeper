@@ -9,7 +9,7 @@ const Alerts = () => {
       alerts.map(({id, type, msg}) => (
         <div key={id} className={`alert alert-${type}`}>
           <i className="fa fa-info-circle"></i>
-          {msg}
+          <span className='ml-2'>{msg}</span>
         </div>
       ))
     )

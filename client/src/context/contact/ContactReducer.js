@@ -1,4 +1,4 @@
-import { GET_CONTACT, ADD_CONTACT, UPDATE_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT, FILTER_CONTACTS, CLEAR_FILTER, CONTACT_ERROR, GET_CONTACTS, CLEAR_CONTACTS } from "../types";
+import { GET_CONTACT, ADD_CONTACT, UPDATE_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT, FILTER_CONTACTS, CLEAR_FILTER, CONTACT_ERROR, GET_CONTACTS, CLEAR_CONTACTS, CLEAR_ERRORS } from "../types";
 
 
 export default (state, action) => {
@@ -50,6 +50,11 @@ export default (state, action) => {
           ...state,
           error: action.payload
         }
+        case CLEAR_ERRORS:
+          return {
+            ...state,
+            error: null
+          }
       case GET_CONTACTS: 
         return {
           ...state,
