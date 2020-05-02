@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/AuthContext';
 import ContactContext from '../../context/contact/ContactContext';
+import './Navbar.scss'
+import userProfileDefaultPhoto from '../../assets/photo.png'
+
 const Navbar = ({title, icon}) => {
   const authContext = useContext(AuthContext);
   const {user, isAuthenticated, logout } = authContext;
@@ -18,15 +21,20 @@ const Navbar = ({title, icon}) => {
   }
   const authLinks = (
     <Fragment>
-      <li>Hello {user && user.name} </li>
-      <li>
+      <li className='container-link'>
+        <div className='img-container '>
+          <img src={userProfileDefaultPhoto} alt='User default profile' className='img-fluid' />
+        </div>
+        Hello {user && user.name} 
+      </li>
+      <li className='container-link hover-outline'>
         <Link to='/'>Home</Link>
       </li>
-      <li>
+      <li className='container-link hover-outline'>
         <Link to='/about'>About</Link>
       </li>
-      <li>
-        <a href="#!" onClick={onLogout}>
+      <li className='flex-center hover-outline'>
+        <a href="#!" onClick={onLogout} className='flex-center'>
           <i className="fa fa-sign-out"></i>
           Logout
         </a>
@@ -35,10 +43,10 @@ const Navbar = ({title, icon}) => {
   ); 
   const guestLinks = (
     <Fragment>
-      <li>
+      <li className='container-link hover-outline'>
         <Link to='/register'>Register</Link>
       </li>
-      <li>
+      <li className='container-link hover-outline'>
         <Link to='/login'>Login</Link>
       </li>
     </Fragment>
@@ -46,8 +54,8 @@ const Navbar = ({title, icon}) => {
   return (
     <div className="navbar bg-primary">
       <h1>
-        <i className={icon}></i>
-        {title}
+        <i className={`${icon}`}></i>
+        <span className='ml-2'>{title}</span>
       </h1>
       <ul>
         { isAuthenticated ? authLinks : guestLinks }

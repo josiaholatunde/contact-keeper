@@ -4,7 +4,6 @@ import ContactForm from '../contacts/ContactForm';
 import AuthContext from '../../context/auth/AuthContext';
 const Home = () => {
   const authContext = useContext(AuthContext);
-  console.log(authContext);
   const { loadUser }  = authContext;
 
   useEffect(() => {
@@ -12,7 +11,7 @@ const Home = () => {
     //eslint-disable-next-line
   }, [])
   return (
-    <div className="grid-2">
+    <div className="grid-2 mt-3">
        <div><ContactForm /></div>
        <div>
           <Contacts />

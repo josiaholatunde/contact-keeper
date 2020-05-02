@@ -3,7 +3,7 @@ import {useReducer} from 'react';
 import ContactContext from './ContactContext';
 import ContactReducer from './ContactReducer';
 import axios from 'axios';
-import { ADD_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT, UPDATE_CONTACT, FILTER_CONTACTS, CLEAR_FILTER, CONTACT_ERROR, GET_CONTACTS, CLEAR_CONTACTS } from '../types';
+import { ADD_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT, UPDATE_CONTACT, FILTER_CONTACTS, CLEAR_FILTER, CONTACT_ERROR, GET_CONTACTS, CLEAR_CONTACTS, CLEAR_ERRORS } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
 const ContactState = props => {
   const initialState = {
@@ -11,7 +11,7 @@ const ContactState = props => {
     current: null,
     filtered: null,
     error: null,
-    loading: true
+    loading: true,
   }
 
   const [state, dispatch ] =  useReducer(ContactReducer, initialState);
@@ -19,7 +19,6 @@ const ContactState = props => {
 
   //Get Contacts
   const getContacts = async () => {
-    //  contact.id = uuid.v4();
     setAuthToken(localStorage.token)
       const config = {
         headers: {
@@ -30,14 +29,13 @@ const ContactState = props => {
         const response = await axios.get('/api/contacts', config);
         dispatch({type: GET_CONTACTS, payload: response.data});
       } catch (error) {
-        dispatch({type: CONTACT_ERROR, payload: error.response.data.msg});
+        dispatch({type: CONTACT_ERROR, payload:  error.response.data.msg});
       }
     }
 
   //Add COntact
 
   const addContact = async contact => {
-  //  contact.id = uuid.v4();
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -99,10 +97,15 @@ const ContactState = props => {
     dispatch({type: CLEAR_FILTER})
   }
 
+  const clearErrors = () => {
+    dispatch({ type: CLEAR_ERRORS });
+  };
+
 
   return <ContactContext.Provider value={
     {
       contacts: state.contacts,
+      error: state.error,
       current: state.current,
       addContact,
       loading: state.loading,
@@ -114,7 +117,8 @@ const ContactState = props => {
       filterContact,
       clearFilter,
       getContacts,
-      clearContacts
+      clearContacts,
+      clearErrors
     }
   }>
   {props.children}

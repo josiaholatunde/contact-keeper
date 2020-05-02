@@ -1,14 +1,14 @@
-import React, { useContext, Fragment, useEffect } from 'react'
-import ContactContext from '../../context/contact/ContactContext';
-import ContactItem from './ContactItem';
-import ContactsFilter from './ContactsFilter';
-import { CSSTransition, TransitionGroup} from 'react-transition-group';
-import AlertContext from '../../context/alert/AlertContext';
-import Spinner from '../layout/Spinner';
+import React, { useContext, Fragment, useEffect } from "react";
+import ContactContext from "../../context/contact/ContactContext";
+import ContactItem from "./ContactItem";
+import ContactsFilter from "./ContactsFilter";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import AlertContext from "../../context/alert/AlertContext";
+import Spinner from "../layout/Spinner";
 
 const Contacts = () => {
   const contactContext = useContext(ContactContext);
-  let { contacts, filtered, getContacts, error, loading } = contactContext;
+  let { contacts, filtered, getContacts, error, loading, clearErrors } = contactContext;
 
   const alertContext = useContext(AlertContext);
   let { setAlert } = alertContext;
@@ -16,34 +16,46 @@ const Contacts = () => {
   useEffect(() => {
     getContacts();
     if (error) {
-      setAlert(error, 'danger');
+      setAlert(error, "danger");
+      clearErrors();
     }
     //eslint-disable-next-line
-  }, []); 
+  }, []);
+
+  const displayContacts = (contacts) => {
+    if (contacts.length === 0) {
+      return (
+        <Fragment>
+          <h4 className="no-results">No contacts were found </h4>
+        </Fragment>
+      );
+    }
+    return (
+      <TransitionGroup>
+        {contacts.map((contact) => (
+          <CSSTransition key={contact._id} timeout={500} classNames="item">
+            <ContactItem contact={contact} />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    );
+  };
+
+  if (contacts !== null && contacts.length === 0 && !loading) {
+    return <h4 style={addContactStyle}>Please add a Contact!</h4>;
+  }
   if (filtered) {
     contacts = filtered;
   }
 
-  if (contacts !== null && contacts.length === 0 && !loading) {
-    return <h4>Please add a Contact!</h4>
-  }
+  return loading ? <Spinner /> : <Fragment> 
+    <ContactsFilter />
+    { displayContacts(contacts)  }
+     </Fragment>;
+};
 
-  return (
-    <Fragment>
-        <TransitionGroup>
-          <ContactsFilter />
-          {contacts !== null && !loading ? (contacts.map(contact => (
-            <CSSTransition key={contact._id} timeout={500} classNames='item'>
-              <ContactItem  contact={contact} />
-            </CSSTransition>
-          ))): (
-            <Spinner />
-          )}
-        </TransitionGroup>
-    </Fragment>
-  )
-}
+const addContactStyle = {
+  marginTop: ".7rem",
+};
 
-
-
-export default Contacts
+export default Contacts;
