@@ -1,6 +1,7 @@
 .search-box-container {
     position: relative;
     display: flex;
+    margin-top: .2rem;
 
     .search-icon {
         position: absolute;
@@ -14,3 +15,88 @@
     margin-top: 1rem;
     font-size: 1.2rem;
 }
+
+.upload-container {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    background: #B9C0DB !important;
+    position: relative;
+
+    .user-profile-preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+    }
+    
+}
+.upload-icon {
+    position: absolute;
+    z-index: 10;
+}
+
+.text-grey-light {
+    color: #fff !important;
+  }
+
+  .card {
+      border-radius: .5rem;
+      .photo-container {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+
+        .display-img {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+        }
+    }
+      .contact-details {
+          margin-left: 1.5rem;
+
+          .user-name {
+              @media screen and (max-width: 36rem) {
+                  font-size: .9rem;
+              }
+          }
+
+          .list {
+              li {
+                  margin-left: 0;
+
+                  .user-email:active,.user-email:hover, .user-email:visited, .user-email:link {
+                    color: #333;
+                  }
+                  .user-email, &.user-phone {
+                      @media screen and (max-width: 36rem) {
+                          font-size: .8rem;
+                      }
+                  }
+              }
+          }
+      }
+  }
+
+  .user-profile-name{
+      @media screen and (max-width: 25rem) {
+          display: none;
+      }
+  }
+
+  .badge {
+      @media screen and (max-width: 36rem) {
+          font-size: .59rem;
+      }
+  }
+
+
+
+  .d-flex {
+      display: flex;
+  }
+
+  

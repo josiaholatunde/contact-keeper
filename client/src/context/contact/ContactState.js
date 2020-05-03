@@ -38,7 +38,7 @@ const ContactState = props => {
   const addContact = async contact => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     }
     try {
@@ -70,11 +70,12 @@ const ContactState = props => {
   const updateContact = async contact => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     }
+    const contactId = contact.get('id');
     try {
-      const response = await axios.put(`/api/contacts/${contact._id}`, contact, config);
+      const response = await axios.put(`/api/contacts/${contactId}`, contact, config);
       dispatch({type: UPDATE_CONTACT, payload: response.data});
     } catch (error) {
       dispatch({type: CONTACT_ERROR, payload: error.response.data.msg});

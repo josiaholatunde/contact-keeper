@@ -25,17 +25,25 @@ exports.addContact = async (req, res, next) => {
     if (contactFromDb) {
       return res.status(400).json({msg: 'Contact Exists'});
     }
+
+    let displayImageUrl;
+    if (!!await req.files) {
+       displayImageUrl = req.files[0].url;
+    }
+
     const contact = new Contacts({
       name,
       email,
       phone,
       type,
+      displayImageUrl,
       user: user.id
     })
+    
+
     await contact.save();
     return res.status(201).json(contact);
   } catch (error) {
-    console.error(error.message);
     return res.status(500).send('Server Error');
   }
 }
@@ -54,6 +62,12 @@ exports.updateContact = async (req, res, next) => {
    if (email) contactsField.email = email;
    if (phone) contactsField.phone = phone;
    if (type) contactsField.type = type;
+
+   let displayImageUrl;
+   if (!!await req.files) {
+      displayImageUrl = req.files[0].url;
+      contactsField.displayImageUrl = displayImageUrl
+   }
 
    contact = await Contacts
                     .findByIdAndUpdate(req.params.id, 

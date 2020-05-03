@@ -4,6 +4,14 @@
     margin-top: 1.4rem;;
 }
 
+.mt-2 {
+    margin-top: .3rem;
+}
+.my-3 {
+    margin-top: 1.4rem;
+    margin-bottom: 1.4rem;
+}
+
 .flex-center {
     display: flex;
     align-items: center;
@@ -27,6 +35,7 @@
     margin-top: 0 !important;
 }
 
+.mr-1 { margin-right: .3rem;}
 .radio {
     transform: scale(1.5);
     -ms-transform: scale(1.5);
@@ -46,4 +55,18 @@
 .filter-container {
     margin-top: 3.3rem;
     height: 100%;
+}
+
+.justify-content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visibilty-0 {
+    visibility: hidden;
+}
+
+.btn {
+    border-radius: .2rem;
 }

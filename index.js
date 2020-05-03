@@ -1,11 +1,14 @@
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path')
+const bodyParser = require('body-parser')
 const { mongoDbURI } = require('./config/keys');
 
 const app = express();
 
-app.use(express.json({extended: false}));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 const PORT = process.env.PORT || 9876;
 

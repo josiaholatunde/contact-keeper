@@ -23,6 +23,9 @@ const ContactsSchema = new Schema({
     type: String,
     default: 'Personal'
   },
+  displayImageUrl: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now()

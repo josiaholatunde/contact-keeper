@@ -21,7 +21,7 @@ const Navbar = ({title, icon}) => {
   }
   const authLinks = (
     <Fragment>
-      <li className='container-link'>
+      <li className='container-link user-profile-name'>
         <div className='img-container '>
           <img src={userProfileDefaultPhoto} alt='User default profile' className='img-fluid' />
         </div>
