@@ -1,6 +1,8 @@
-const { loginUser, getUser } = require('../controllers/UsersController');
+const { loginUser, getUser, verifyLoggedInUser } = require('../controllers/UsersController');
 const auth = require('../middlewares/auth');
 const { check } = require('express-validator');
+const passport = require('passport')
+const { clientUrl } = require('../config/keys')
 
 module.exports = app => {
 
@@ -15,4 +17,8 @@ module.exports = app => {
     check('email', 'Invalid Email').isEmail(),
     check('password', 'Password field must have a minimum length of 7 characters').isLength({min: 7}),
   ], loginUser);
+
+  app.get('/auth/google', passport.authenticate('google', { scope: ['email profile']}));
+  app.get('/auth/google-login/callback', passport.authenticate('google', {failureRedirect: clientUrl, successRedirect: clientUrl}))
+  app.get('/auth/current-user', verifyLoggedInUser)
 }

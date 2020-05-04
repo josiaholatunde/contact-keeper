@@ -115,3 +115,9 @@ exports.loginUser = async (req, res, next) => {
   }
 
 }
+
+exports.verifyLoggedInUser = async (req, res, next) => {
+    return res.status(200).json({
+      user: req.user
+    })
+}
