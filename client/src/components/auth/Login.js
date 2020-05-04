@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/AuthContext";
 import AlertContext from "../../context/alert/AlertContext";
 import Spinner from "../layout/Spinner";
+import './auth.scss'
 
 const Login = (props) => {
   const [user, setUser] = useState({
@@ -78,6 +79,20 @@ const Login = (props) => {
             value="Login"
             disabled={!isFormValid()}
           />
+        </div>
+        <div className='form-group'>
+          <div className='bg-google justify-flex-start'>
+            <a href='/auth/google' className='sso-link pointer w-100 text-white justify-flex-start'>
+            <i className='fa fa-google text-white fa-2x'></i>
+            <label className='ml-3'>Sign in with google</label>
+            </a>
+          </div>
+          <div className='bg-fb mt-3 justify-flex-start'>
+            <a href='/auth/facebook' className='sso-link pointer text-white justify-flex-start'>
+              <i className='fa fa-facebook text-white fa-2x'></i>
+              <label className='ml-3'>Sign in with facebook</label>
+            </a>
+          </div>
         </div>
       </form>
     </div>

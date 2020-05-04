@@ -28,7 +28,11 @@ exports.addContact = async (req, res, next) => {
 
     let displayImageUrl;
     if (!!await req.files) {
+      const files = await req.files;
+      if (files.length > 0) {
        displayImageUrl = req.files[0].url;
+       contactsField.displayImageUrl = displayImageUrl
+      }
     }
 
     const contact = new Contacts({

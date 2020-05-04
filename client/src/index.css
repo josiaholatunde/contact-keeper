@@ -70,3 +70,45 @@
 .btn {
     border-radius: .2rem;
 }
+
+.bg-grey {
+    background-color: #eee;
+    border-radius: .3rem;
+    padding-top: 1rem 0;
+    height: 2.4rem;
+}
+
+.bg-fb {
+    background-color: #3b5998;
+    border-radius: .3rem;
+    padding-top: 1rem 0;
+    height: 2.4rem;
+    padding-left: .6rem;
+    color: #fff;
+}
+
+.bg-google {
+    background-color: #db3236;
+    border-radius: .3rem;
+    padding-top: 1rem 0;
+    padding-left: .6rem;
+    height: 2.38rem;
+    color: #fff;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.google-color {
+    color: #db3236;
+}
+.facebook-color {
+    color: #3b5998;
+}
+
+.justify-flex-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
