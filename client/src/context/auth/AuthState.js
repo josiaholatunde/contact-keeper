@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
 import AuthReducer from "./AuthReducer";
-import axios from "axios";
+import axios from '../../utils/axiosConfig';
 import AuthContext from "./AuthContext";
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAILED,
@@ -12,6 +13,7 @@ import {
   LOGIN_FAILED,
   LOG_OUT,
   SET_LOADING,
+  SET_USER_VIA_OAUTH,
 } from "../types";
 import setAuthToken from "../../utils/setAuthToken";
 
@@ -34,6 +36,17 @@ const AuthState = (props) => {
       dispatch({ type: USER_LOADED, payload: response.data });
     } catch (error) {
       dispatch({ type: AUTH_ERRORS, payload: error.response.data.msg });
+    }
+  };
+
+  const getLoggedInUserViaOauth = async () => {
+    try {
+      const response = await axios.get("/auth/current-user");
+      const { user, token } = response.data
+      // localStorage.token && setAuthToken(token);
+      dispatch({ type: SET_USER_VIA_OAUTH, payload: { user, token } });   
+    } catch (error) {
+      // dispatch({ type: AUTH_ERRORS, payload: error.response.data.msg });
     }
   };
 
@@ -78,8 +91,13 @@ const AuthState = (props) => {
 
   //Logout
 
-  const logout = () => {
-    dispatch({ type: LOG_OUT });
+  const logout = async () => {
+    try {
+       await axios.get("/auth/logout");
+      dispatch({ type: LOG_OUT });
+    } catch (error) {
+      dispatch({ type: AUTH_ERRORS, payload: error.response.data.msg });
+    }
   };
 
   //CLear Errors
@@ -100,6 +118,7 @@ const AuthState = (props) => {
         loadUser,
         loginUser,
         logout,
+        getLoggedInUserViaOauth
       }}
     >
       {props.children}

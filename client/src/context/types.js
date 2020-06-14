@@ -20,6 +20,8 @@ export const REGISTER_FAILED = 'REGISTER_FAILED';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOG_OUT = 'LOG_OUT';
+export const SET_USER_VIA_OAUTH = 'SET_USER_VIA_OAUTH';
+
 
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 

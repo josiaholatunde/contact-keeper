@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import ContactContext from '../../context/contact/ContactContext';
 import AlertContext from '../../context/alert/AlertContext'
-import AuthContext from '../../context/auth/AuthContext'
 
 import validateEmail from '../../utils/isEmailValid'
 const ContactForm = () => {
@@ -13,18 +12,16 @@ const ContactForm = () => {
   });
   const [error, setError] = useState({
     email : ''
-  })
+  });
   const [imagePreview, setImagePreview] = useState('')
   const [userProfileImage, setUserProfileImage] = useState('')
 
   const contactContext = useContext(ContactContext);
   const alertContext = useContext(AlertContext);
-  const authContext = useContext(AuthContext);
   const userImage = useRef()
   const {  setAlert } = alertContext;
 
   const { addContact, current, clearCurrent, updateContact, error:contactError }  = contactContext;
-  const { loadUser } = authContext
 
   const {name, email, phone, type} = contact;
 
@@ -43,7 +40,6 @@ const ContactForm = () => {
         type: 'personal'
       });
     }
-    localStorage.token && loadUser()
     //eslint-disable-next-line
   }, [contactContext, current, contactError]);
 

@@ -2,9 +2,10 @@ import React from 'react';
 import {useReducer} from 'react';
 import ContactContext from './ContactContext';
 import ContactReducer from './ContactReducer';
-import axios from 'axios';
+import axios from '../../utils/axiosConfig';
 import { ADD_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT, UPDATE_CONTACT, FILTER_CONTACTS, CLEAR_FILTER, CONTACT_ERROR, GET_CONTACTS, CLEAR_CONTACTS, CLEAR_ERRORS } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
+
 const ContactState = props => {
   const initialState = {
     contacts: null,
@@ -23,10 +24,11 @@ const ContactState = props => {
       const config = {
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        withCredentials: true
       }
       try {
-        const response = await axios.get('/api/contacts', config);
+        const response = await axios.get('/api/contacts');
         dispatch({type: GET_CONTACTS, payload: response.data});
       } catch (error) {
         dispatch({type: CONTACT_ERROR, payload:  error.response.data.msg});
@@ -39,7 +41,8 @@ const ContactState = props => {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data'
-      }
+      },
+      withCredentials: true
     }
     try {
       const response = await axios.post('/api/contacts', contact, config);
@@ -53,7 +56,8 @@ const ContactState = props => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      withCredentials: true
     }
     try {
       await axios.delete(`/api/contacts/${id}`, config);
@@ -71,7 +75,8 @@ const ContactState = props => {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data'
-      }
+      },
+      withCredentials: true
     }
     const contactId = contact.get('id');
     try {

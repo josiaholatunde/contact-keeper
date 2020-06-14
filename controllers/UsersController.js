@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../config/keys');
-
+const generateToken = require('../utils/generateToken')
 
 exports.registerUser = async (req, res, next) => {
   const errors = validationResult(req);
@@ -117,7 +117,20 @@ exports.loginUser = async (req, res, next) => {
 }
 
 exports.verifyLoggedInUser = async (req, res, next) => {
+
+  const user = req.user ? req.user: null;
+  let token;
+  if (user) {
+    token = await generateToken(user);
     return res.status(200).json({
-      user: req.user
-    })
+      user,
+      token
+    });
+  } else {
+    return res.status(404).json({
+      user,
+      msg: 'An error occurred while logging in via oauth'
+    });
+  }
+  
 }

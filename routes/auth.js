@@ -21,4 +21,18 @@ module.exports = app => {
   app.get('/auth/google', passport.authenticate('google', { scope: ['email profile']}));
   app.get('/auth/google-login/callback', passport.authenticate('google', {failureRedirect: clientUrl, successRedirect: clientUrl}))
   app.get('/auth/current-user', verifyLoggedInUser)
+  app.get('/auth/logout', (req, res, next) => {
+    req.logout();
+    return res.status(200).json({
+      msg: 'Successfully logged out user'
+    })
+  })
+
+  app.get('/auth/adeogun', (req, res)=> {
+    console.log('Adeogun', req.user);
+    return res.json({
+      msg: ''
+    })
+  })
+
 }

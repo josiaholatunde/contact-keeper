@@ -15,7 +15,7 @@ const Login = (props) => {
   })
 
   const authContext = useContext(AuthContext);
-  const { loginUser, isAuthenticated, error, clearErrors, loading } = authContext;
+  const { loginUser, isAuthenticated, error, clearErrors, loading, getLoggedInUserViaOauth } = authContext;
 
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
@@ -40,6 +40,9 @@ const Login = (props) => {
     if (error === "Invalid Credentials") {
       setAlert(error, "danger");
       clearErrors();
+    }
+    if (!isAuthenticated) {
+      getLoggedInUserViaOauth();
     }
     //eslint-disable-next-line
   }, [isAuthenticated, error, props.history, loading]);
@@ -81,18 +84,14 @@ const Login = (props) => {
           />
         </div>
         <div className='form-group'>
-          <div className='bg-google justify-flex-start'>
-            <a href='/auth/google' className='sso-link pointer w-100 text-white justify-flex-start'>
+          <a href='/auth/google' className='bg-google sso-link text-white justify-flex-start pointer p-1'>
             <i className='fa fa-google text-white fa-2x'></i>
-            <label className='ml-3'>Sign in with google</label>
-            </a>
-          </div>
-          <div className='bg-fb mt-3 justify-flex-start'>
-            <a href='/auth/facebook' className='sso-link pointer text-white justify-flex-start'>
+            <label className='ml-3 pointer'>Sign in with google</label>
+          </a>
+          <a href='/auth/facebook' className='bg-fb sso-link text-white mt-3 justify-flex-start p-1'>
               <i className='fa fa-facebook text-white fa-2x'></i>
-              <label className='ml-3'>Sign in with facebook</label>
-            </a>
-          </div>
+              <label className='ml-3 pointer'>Sign in with facebook</label>
+          </a>
         </div>
       </form>
     </div>

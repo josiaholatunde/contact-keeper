@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const { mongoDbURI, passportCookieKey } = require('./config/keys');
 const cookieSession = require('cookie-session')
 const passport = require('passport')
+const cors = require('cors')
 require('./services/googlePassportStrategy')
 const app = express();
 
@@ -27,6 +28,12 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+  methods: 'GET,PUT,POST,PATCH,DELETE,OPTIONS'
+}))
 
 
 app.listen(PORT, () => {

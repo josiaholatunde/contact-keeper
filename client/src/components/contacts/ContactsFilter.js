@@ -10,7 +10,7 @@ const ContactsFilter = () => {
     if (filtered == null) {
       filterVal.current.value = '';
     }
-  })
+  }, [filtered])
 
   const onChange = ({target}) => {
     if (filterVal.current.valueOf() !== target.value) {

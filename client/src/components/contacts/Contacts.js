@@ -23,7 +23,7 @@ const Contacts = () => {
   }, []);
 
   const displayContacts = (contacts) => {
-    if (contacts.length === 0) {
+    if (contacts && contacts.length === 0) {
       return (
         <Fragment>
           <h4 className="no-results">No contacts were found </h4>
@@ -32,7 +32,7 @@ const Contacts = () => {
     }
     return (
       <TransitionGroup>
-        {contacts.map((contact) => (
+        {contacts && contacts.map((contact) => (
           <CSSTransition key={contact._id} timeout={500} classNames="item">
             <ContactItem contact={contact} />
           </CSSTransition>

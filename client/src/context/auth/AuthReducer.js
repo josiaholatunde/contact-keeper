@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAILED, CLEAR_ERRORS, USER_LOADED, AUTH_ERRORS, LOGIN_FAILED, LOGIN_SUCCESS, LOG_OUT, SET_LOADING } from "../types";
+import { REGISTER_SUCCESS, REGISTER_FAILED, CLEAR_ERRORS, USER_LOADED, AUTH_ERRORS, LOGIN_FAILED, LOGIN_SUCCESS, LOG_OUT, SET_LOADING, SET_USER_VIA_OAUTH } from "../types";
 
 export default (state, action) => {
   switch (action.type) { 
@@ -35,6 +35,15 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload
+      }
+    case SET_USER_VIA_OAUTH:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload.user,
+        token: action.payload.token
       }
     case SET_LOADING:
       

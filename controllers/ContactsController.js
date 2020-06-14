@@ -2,7 +2,10 @@ const Contacts = require('../models/Contact');
 const {  validationResult } = require('express-validator');
 
 exports.getUserContacts = async (req, res, next) => {
-  const {id} = req.user;
+  const user  = req.user;
+  console.log('Uji', user);
+  const id = user.id || user._id;
+
   try {
     const contacts = await Contacts.find({user: id}).sort({date: -1}); 
     res.json(contacts);
@@ -19,6 +22,7 @@ exports.addContact = async (req, res, next) => {
     return res.status(400).json(errors.array());
   }
   const {name, email, phone, type} = req.body;
+  console.log(req.user);
   const user = req.user;
   try {
     const contactFromDb = await Contacts.findOne({ email, user: user.id });
@@ -48,7 +52,8 @@ exports.addContact = async (req, res, next) => {
     await contact.save();
     return res.status(201).json(contact);
   } catch (error) {
-    return res.status(500).send('Server Error');
+    console.log(error);
+    return res.status(500).json({msg: 'Server Error'});
   }
 }
 
